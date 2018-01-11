@@ -5,6 +5,10 @@ public class Shingle {
 	private int hashcode;
 
 	//Constructor & Getters/Setters
+	/**
+	 * 
+	 * @returns docId's & hashcode's
+	 */
 	public Shingle() {
 		super();
 		

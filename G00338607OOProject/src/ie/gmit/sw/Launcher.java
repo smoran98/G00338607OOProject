@@ -7,6 +7,10 @@ public class Launcher {
 	public void Launch(String f1, String f2, int shingleSize, int k, int poolSize) throws InterruptedException {
 	
 		BlockingQueue<Shingle> q = new LinkedBlockingQueue<Shingle>(); 
+		/**
+		 * 
+		 * @returns values from BlockingQueue
+		 */
 		
 		Thread t1 = new Thread(new DocumentParser(f1, shingleSize, q, 1), "T1");
 		Thread t2 = new Thread(new DocumentParser(f2, shingleSize, q, 2), "T2");
@@ -18,5 +22,6 @@ public class Launcher {
 		t1.join();
 		t2.join();
 		t3.join();
-	}
-}
+	} // Launch
+
+} // Launcher

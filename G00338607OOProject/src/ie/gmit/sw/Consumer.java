@@ -22,6 +22,10 @@ public class Consumer implements Runnable {
 	private ExecutorService pool;
 
 	//gets Map
+	/**
+	 * 
+	 * @returns value of concurrent map
+	 */
 	public ConcurrentMap<Integer, List<Integer>> getMap() {
 		return map;
 	}
@@ -33,6 +37,7 @@ public class Consumer implements Runnable {
 		init();
 	}
 	
+	// Init number of min-hashes
 	public void init() {
 		Random random = new Random();
 		minhashes = new int[k];

@@ -9,6 +9,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 
+// Variables & Constructors
 public class DocumentParser implements Runnable{
 	private String file;
 	private int shingleSize;
@@ -47,7 +48,7 @@ public class DocumentParser implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
+	} // Run
 	
 	private void addWordsToBuffer(String[] words) {
 		for (String s: words) {
@@ -75,7 +76,7 @@ public class DocumentParser implements Runnable{
 			return null;
 		}
 		
-	}
+	} // getNextShingle
 	
 	private void flushBuffer() throws InterruptedException{
 
@@ -84,9 +85,9 @@ public class DocumentParser implements Runnable{
 			if(s != null) {
 				q.put(s);
 			}
-		}
+		} // While
 		q.put(new Poison(docId, 0));
-	}
 	
-
+	} // flushBuffer
+	
 }

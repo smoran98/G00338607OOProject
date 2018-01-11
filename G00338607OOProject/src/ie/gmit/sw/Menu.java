@@ -3,7 +3,8 @@ package ie.gmit.sw;
 import java.util.Scanner;
 
 public class Menu {
-
+	
+	// Menu for inputting
 	private Scanner console = new Scanner(System.in);
 
 	public Menu() throws InterruptedException {
