@@ -1,5 +1,6 @@
-# Measuring-Document-Similarity
-# OOProgramming Project for measuring Document Similarity
+# G00338607
+# A Java API for Measuring Document Similarity File
+# OOProgramming Project
 This Project is a Java API that rapidly compares two big text files   
 It computes their Jaccard Index.   
 I've a UML Class Diagram, showing relationships between classes.
