@@ -8,23 +8,22 @@ import java.io.InputStreamReader;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
-import java.lang.Runnable;
 
 public class DocumentParser implements Runnable{
 	private String file;
 	private int shingleSize;
-	private int k;
 	private BlockingQueue<Shingle> q;
 	private Deque<String> buffer = new LinkedList<>();
 	private int docId;
-	public DocumentParser(String file, int shingleSize, int k, BlockingQueue<Shingle> q,int docId) {
+	
+	public DocumentParser(String file, int shingleSize, BlockingQueue<Shingle> q,int docId) {
 		super();
 		this.file = file;
 		this.shingleSize = shingleSize;
-		this.k = k;
 		this.q = q;
 		this.docId = docId;
 	}
+	
 	public void run() {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -37,9 +36,10 @@ public class DocumentParser implements Runnable{
 					Shingle s = getNextShingle();
 					q.put(s);
 				}
-			}
+			}		
 			br.close();
 			flushBuffer();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -48,11 +48,13 @@ public class DocumentParser implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
 	private void addWordsToBuffer(String[] words) {
 		for (String s: words) {
 			buffer.add(s);
 		}
 	}
+	
 	private Shingle getNextShingle() {
 		StringBuilder sb = new StringBuilder();
 		int counter = 0;
@@ -64,6 +66,7 @@ public class DocumentParser implements Runnable{
 			else {
 				counter = shingleSize;
 			}
+			
 		}
 		if(sb.length() > 0) {
 			return (new Shingle(docId,sb.toString().hashCode()));
@@ -71,7 +74,9 @@ public class DocumentParser implements Runnable{
 		else {
 			return null;
 		}
+		
 	}
+	
 	private void flushBuffer() throws InterruptedException{
 
 		while(buffer.size() > 0) {
@@ -82,5 +87,6 @@ public class DocumentParser implements Runnable{
 		}
 		q.put(new Poison(docId, 0));
 	}
+	
 
 }

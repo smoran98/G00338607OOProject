@@ -25,7 +25,6 @@ public class Menu {
 
 		new Launcher().Launch(f1, f2, shingleSize, k, poolSize);
 
-
 	}
 
 }

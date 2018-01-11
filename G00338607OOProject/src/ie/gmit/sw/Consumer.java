@@ -9,7 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.lang.Runnable;
+import java.util.concurrent.TimeUnit;
+
 import ie.gmit.sw.Poison;
 
 public class Consumer implements Runnable {
@@ -20,18 +21,18 @@ public class Consumer implements Runnable {
 	private ConcurrentMap<Integer,List<Integer>> map = new ConcurrentHashMap<Integer, List<Integer>>();
 	private ExecutorService pool;
 
-
+	//gets Map
 	public ConcurrentMap<Integer, List<Integer>> getMap() {
 		return map;
 	}
-
+	
 	public Consumer(BlockingQueue<Shingle> q, int k, int poolSize) {
 		this.q = q;
 		this.k = k;
 		pool = Executors.newFixedThreadPool(poolSize);
 		init();
 	}
-
+	
 	public void init() {
 		Random random = new Random();
 		minhashes = new int[k];
@@ -54,20 +55,20 @@ public class Consumer implements Runnable {
 
 							List<Integer>list = map.get(s.getDocId());
 							for(int i=0;i<minhashes.length;i++) {
-								int value = s.getHashCode() ^ minhashes[i];
+								int value = s.getHashcode() ^ minhashes[i];
 								list = map.get(s.getDocId());
 								if(list == null) {
 									list = new ArrayList<Integer>(Collections.nCopies(k, Integer.MAX_VALUE));
 									map.put(s.getDocId(),list);
 
 								}
-								else { 
+								else {		
 									if(list.get(i)>value) {
 										list.set(i, value);
 									}
 								}
 							} 
-							map.put(s.getDocId(), list); 
+							map.put(s.getDocId(), list);			
 						}
 					});
 				}
@@ -77,11 +78,18 @@ public class Consumer implements Runnable {
 			}
 
 		}
+		
+		pool.shutdown();
+		try {
+			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MINUTES);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		List<Integer> intersection = map.get(1);
-		intersection.retainAll(map.get(2));
+		intersection.retainAll(map.get(2));	
 		float jacquared = (float)intersection.size()/(k*2-(float)intersection.size());
-
-		System.out.println("It Matches: " + (jacquared) * 100 + "%");
+		
+		System.out.println("\nIt Matches: " + (jacquared) * 100 + " %");
 	}
 }

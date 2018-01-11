@@ -1,7 +1,8 @@
 package ie.gmit.sw;
 
 public class Shingle {
-	private int docId, hashcode;
+	private int docId;
+	private int hashcode;
 
 	//Constructor & Getters/Setters
 	public Shingle() {
@@ -14,8 +15,6 @@ public class Shingle {
 		this.docId = docId;
 		this.hashcode = hashcode;
 	}
-	
-	
 	
 	public int getDocId() {
 		return docId;
@@ -32,11 +31,4 @@ public class Shingle {
 	public void setHashcode(int hashcode) {
 		this.hashcode = hashcode;
 	}
-
-	public int getHashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 }
