@@ -14,4 +14,4 @@ Step 3: Navigate to directory
 
 Step 4: Run Java Application OR Run "Java –cp ./oop.jar ie.gmit.sw.Runner OR Java -jar ./oop.jar"
 
-Step 5: Compare text files
+Step 5: Compare text files e.g. S.txt AND DeBelloGallico.txt 
