@@ -11,6 +11,6 @@ Step 2: Download / Clone
 
 Step 3: Navigate to directory 
 
-Step 4: Run Java Application 
+Step 4: Run Java Application OR Run the command java –cp ./oop.jar ie.gmit.sw.Runner or java -jar ./oop.jar
 
 Step 5: Compare text files
